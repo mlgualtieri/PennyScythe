@@ -7,7 +7,7 @@
 # The script has only been tested with the EvilCorp WastedLocker threat plan, 
 # and would likely require enhancements to work with other plans
 #
-# Usage: PennyScythe.py
+# Usage: python[.exe] PennyScythe.py
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #
