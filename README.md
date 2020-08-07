@@ -12,7 +12,7 @@ The script has only been tested with the EvilCorp WastedLocker threat plan, and 
 
 ## Usage ##
 ```
-Usage: PennyScythe.py
+Usage: python.exe PennyScythe.py
 ```
 
 ## DISCLAIMER: ##
