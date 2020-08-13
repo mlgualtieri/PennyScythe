@@ -10,7 +10,7 @@
 # Many of SCYTHE's Community Threats work with this script.  Support status is
 # indicated for each module with --list.
 #
-# Usage: python[.exe] PennyScythe.py --t EvilCorp/EvilCorp-WastedLocker -r
+# Usage: python[.exe] PennyScythe.py -t EvilCorp/EvilCorp-WastedLocker -r
 #
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #
