@@ -39,7 +39,7 @@ python3 PennyScythe.py --list
 ```
 Run the EvilCorp/EvilCorp-WastedLocker threat:
 ```
-python3 PennyScythe.py --threat EvilCorp/EvilCorp-WastedLocker --run --sleep 1
+python3 PennyScythe.py --threat EvilCorp/EvilCorp-WastedLocker --run
 ```
 Run the EvilCorp/EvilCorp-WastedLocker threat pausing for 1 second between steps (default sleep is 5 seconds):
 ```
