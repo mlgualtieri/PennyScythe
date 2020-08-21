@@ -19,17 +19,17 @@ Usage: python[.exe] PennyScythe.py -t <threat> -r [-u <url>] [-s 5] [-c] [-d] [-
 ```
 ```
 Main options:
-  -c, --compat           Test the specified --threat or --url
-                         for compatibility
-  -d, --debug            Turn on debug options likely only useful
-                         to the author of this script
+  -c, --compat            Test the specified --threat or --url for compatibility
+  -d, --debug             Turn on debug options likely only useful to the author
+                          of this script
   -h, --help
-  -l, --list             List all available threat modules
-  -r, --run              Run the specified --threat or --url
-  -s, --sleep            Sleep time in seconds between steps of the
-                         specified --threat or --url
-  -t, --threat <threat>  Specify a threat to test --compat or --run
-  -u, --url    <url>     Supply a URL to a prepared threat plan
+  -l, --list              List all available --threat modules
+  -r, --run               Run the specified --threat or --url
+  -s, --sleep  <seconds>  Sleep time in seconds between steps of the executed
+                          --threat or --url; default is 5
+  -t, --threat <threat>   Specify a threat to test --compat or --run;
+                          (to view all available threat modules use --list)
+  -u, --url    <url>      Supply a URL to a prepared threat plan
 ```
 
 ## Examples ##
