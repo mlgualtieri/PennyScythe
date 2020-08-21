@@ -25,7 +25,7 @@
 # GitHub  : https://github.com/mlgualtieri/PennyScythe
 #
 
-import os, time, sys, urllib.request, json, shutil, textwrap, getopt
+import os, time, datetime, sys, urllib.request, json, shutil, textwrap, getopt
 
 
 # APT19/APT19                       (partial support - no printsreen)
@@ -120,6 +120,10 @@ def listThreats():
 
     sys.exit()
 
+
+
+def outputTimestamp():
+    print("         > Timestamp: [{:%Y-%m-%d %H:%M:%S}]".format(datetime.datetime.now()))
 
 
 
@@ -251,6 +255,26 @@ def doDownloader(request, default_sleep, debug):
     out.close()
 
 
+# Not functional (yet) 
+def doUploader(request, default_sleep, debug):
+    print("         > Upload :", request)
+    time.sleep(default_sleep)
+
+    req   = request.split(" ")
+    rpath = req[ req.index("--remotepath")  + 1].strip('\"')
+
+    # Only specify for Windows
+    if "USERPROFILE" in os.environ:
+        dest = dest.replace("%USERPROFILE%", os.environ["USERPROFILE"])
+
+    ### Debug
+    if debug == True:
+        dest = "/tmp/"
+
+    print("         Upload to :", rpath)
+
+    # Need to determine how to get the source file
+    #shutil.move(source, destination)
 
 
 def doController(request, default_sleep, debug):
@@ -272,7 +296,8 @@ def doController(request, default_sleep, debug):
 
 
 def startEmulation(emulation_plan_url, default_sleep, test_threat, debug):
-    # Keep track of unsupported modules
+    # Keep track of supported/unsupported modules
+    supported = 0
     unsupported = 0
 
     with urllib.request.urlopen(emulation_plan_url) as url:
@@ -288,13 +313,20 @@ def startEmulation(emulation_plan_url, default_sleep, test_threat, debug):
     print(desc_out)
 
     # Platform test
+    # Allow to proceed for --debug and --compat modes
     if debug is False:
         if emulation_plan["threat"]["operating_system_name"] == "windows" and os.name != 'nt':
-            print("\n[!] Error: This threat requires Windows")
-            sys.exit()
+            if test_threat == False:
+                print("\n[!] Error: This threat requires Windows")
+                sys.exit()
+            else:
+                print("\n[!] Warning: This threat requires Windows")
         elif emulation_plan["threat"]["operating_system_name"] == "linux" and os.name != 'posix':
-            print("\n[!] Error: This threat requires Linux")
-            sys.exit()
+            if test_threat == False:
+                print("\n[!] Error: This threat requires Linux")
+                sys.exit()
+            else:
+                print("\n[!] Warning: This threat requires Linux")
 
     
     print('')
@@ -317,12 +349,24 @@ def startEmulation(emulation_plan_url, default_sleep, test_threat, debug):
         step = emulation_plan["threat"]["script"][i]
     
         if "type" in step:
-            if step["type"] == "message":
+            if step["type"] == "message" or step["type"] == "delay":
     
-                # Skip over initialization and loader steps
+                # Skip over 'initialization' and 'loader' steps, handle 'delay' separately
+                #valid_modules = ["run","file","crypt","downloader","uploader","controller", "loader"]
+                # Uploader not a valid module (yet)
                 valid_modules = ["run","file","crypt","downloader","controller", "loader"]
     
-                if step["module"] in valid_modules:
+                if step["type"] == "delay":
+                    supported += 1
+                    if test_threat == True:
+                        if debug == True:
+                            print("Module", step["type"], ": Supported...")
+                        else:
+                            print("         > Sleeping:", step["time"], "seconds...")
+                            time.sleep(int(step["time"]))
+                            outputTimestamp()
+                elif step["module"] in valid_modules:
+                    supported += 1
     
                     if test_threat == False:
                         if "rtags" in step:
@@ -340,14 +384,22 @@ def startEmulation(emulation_plan_url, default_sleep, test_threat, debug):
                             else:
                                 if step["module"] == "run":
                                     doRun(step["request"], default_sleep, debug)
+                                    outputTimestamp()
                                 elif step["module"] == "file":
                                     doFile(step["request"], default_sleep, debug)
+                                    outputTimestamp()
                                 elif step["module"] == "crypt":
                                     doCrypt(step["request"], default_sleep, debug)
+                                    outputTimestamp()
                                 elif step["module"] == "downloader":
                                     doDownloader(step["request"], default_sleep, debug)
+                                    outputTimestamp()
+                                elif step["module"] == "uploader":
+                                    doUploader(step["request"], default_sleep, debug)
+                                    outputTimestamp()
                                 elif step["module"] == "controller":
                                     doController(step["request"], default_sleep, debug)
+                                    outputTimestamp()
     
                 else:
                     unsupported += 1
@@ -357,6 +409,10 @@ def startEmulation(emulation_plan_url, default_sleep, test_threat, debug):
         if unsupported == 0:
             print('')
             print("Awesome! This threat appears to be fully supported!")
+            print('')
+        elif unsupported == 0:
+            print('')
+            print("This threat appears to be partially supported!")
             print('')
         else:
             print('')
