@@ -36,8 +36,10 @@ import os, time, datetime, sys, urllib.request, json, shutil, textwrap, getopt
 # CozyBear/CozyBear-Step2           (partial support - no uploader, time delay)
 # DeepPanda/Deep_Panda_Desrubi      (supported)
 # Orangeworm/Orangeworm             (supported)
+# PowerShell/PowerShellAndEncoding  (supported)
 # Ransomware/Ransomware_Example     (supported)
 # EvilCorp/EvilCorp-WastedLocker    (supported)
+# SpeakUp/SpeakUp                   (partial support)
 
 threats = {
     "APT19/APT19": {
@@ -88,6 +90,12 @@ threats = {
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/EvilCorp/WastedLocker_scythe_threat.json",
         "support": "Supported"
     },
+    "PowerShell/PowerShellAndEncoding": {
+        "display_name": "PowerShellAndEncoding",
+        "description": "For testing detection of powershell.exe and encoding",
+        "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/PowerShell/PowerShellAndEncoding_scythe_threat.json",
+        "support": "Supported"
+    },
     "Orangeworm/Orangeworm": {
         "display_name": "Orangeworm",
         "description": "Orangeworm is a group that has targeted organizations in the healthcare sector in the United States, Europe, and Asia since at least 2015.",
@@ -98,6 +106,12 @@ threats = {
         "display_name": "Ransomware Example",
         "description": "This Threat Template provides an example ransomware attack, but instead of using actual user data, it creates a directory with files specifically for the purpose of encrypting them. It then downloads a ransom note from the public internet.",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/Ransomware/Ransomware_Example_scythe_threat.json",
+        "support": "Supported"
+    },
+    "SpeakUp/SpeakUp": {
+        "display_name": "SpeakUp for OSX",
+        "description": "An example Threat replicating some of the behaviors of the SpeakUp trojan, as found by Check Point Research (https://research.checkpoint.com/speakup-a-new-undetected-backdoor-linux-trojan/). Note that this threat is not persistent.",
+        "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/SpeakUp/SpeakUp_for_OSX_scythe_threat.json",
         "support": "Supported"
     }
 }
