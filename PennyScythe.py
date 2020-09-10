@@ -112,7 +112,7 @@ threats = {
         "display_name": "SpeakUp for OSX",
         "description": "An example Threat replicating some of the behaviors of the SpeakUp trojan, as found by Check Point Research (https://research.checkpoint.com/speakup-a-new-undetected-backdoor-linux-trojan/). Note that this threat is not persistent.",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/SpeakUp/SpeakUp_for_OSX_scythe_threat.json",
-        "support": "Supported"
+        "support": "Partial Support"
     }
 }
 
