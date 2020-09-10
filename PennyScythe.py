@@ -33,83 +33,95 @@ import os, time, datetime, sys, urllib.request, json, shutil, textwrap, getopt
 # Buhtrap/Buhtrap-DNS               (not supported)
 # Buhtrap/Buhtrap-HTTPS             (not supported)
 # CozyBear/CozyBear-Step1           (supported)
-# CozyBear/CozyBear-Step2           (partial support - no uploader, time delay)
+# CozyBear/CozyBear-Step2           (partial support - no uploader)
 # DeepPanda/Deep_Panda_Desrubi      (supported)
 # Orangeworm/Orangeworm             (supported)
 # PowerShell/PowerShellAndEncoding  (supported)
 # Ransomware/Ransomware_Example     (supported)
 # EvilCorp/EvilCorp-WastedLocker    (supported)
-# SpeakUp/SpeakUp                   (partial support)
+# SpeakUp/SpeakUp                   (partial support - no uploader)
 
 threats = {
     "APT19/APT19": {
         "display_name": "APT19 for #ThreatThursday",
+        "operating_system_name": "Windows",
         "description": "APT19",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/APT19/APT19_scythe_threat.json",
         "support": "Partial Support"
     },
     "APT33/APT33": {
         "display_name": "APT33",
+        "operating_system_name": "Windows",
         "description": "APT33 is a suspected Iranian threat group that has carried out operations since at least 2013.",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/APT33/APT33_scythe_threat.json",
         "support": "Not Supported"
     },
     "Buhtrap/Buhtrap-DNS": {
         "display_name": "Buhtrap-DNS",
+        "operating_system_name": "Windows",
         "description": "Long-haul C2 over DNS for the persistence portion of Buhtrap Adversary Emulation",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/Buhtrap/Buhtrap-DNS_scythe_threat.json",
         "support": "Not Supported"
     },
     "Buhtrap/Buhtrap-HTTPS": {
         "display_name": "Buhtrap-HTTPS",
+        "operating_system_name": "Windows",
         "description": "Short-haul C2 over HTTPS for the collection portion of Buhtrap Adversary Emulation",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/Buhtrap/Buhtrap-HTTPS_scythe_threat.json",
         "support": "Not Supported"
     },
     "CozyBear/CozyBear-Step1": {
         "display_name": "CozyBear-Step1",
+        "operating_system_name": "Windows",
         "description": "Cozy Bear Step 1 of the MITRE ATT&CK Evaluations Adversary Emulation Plan",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/CozyBear/CozyBear-Step1_scythe_threat.json",
         "support": "Supported"
     },
     "CozyBear/CozyBear-Step2": {
         "display_name": "CozyBear-Step2",
+        "operating_system_name": "Windows",
         "description": "Cozy Bear Step 2 of the MITRE ATT&CK Evaluations Adversary Emulation Plan",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/CozyBear/CozyBear-Step2_scythe_threat.json",
         "support": "Partial Support"
     },
     "DeepPanda/Deep_Panda_Desrubi": {
         "display_name": "Deep Panda Desrubi",
+        "operating_system_name": "Linux",
         "description": "Linux Variant of Desrubi",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/DeepPanda/Deep_Panda_Desrubi_scythe_threat.json",
         "support": "Supported"
     },
     "EvilCorp/EvilCorp-WastedLocker": {
         "display_name": "WastedLocker",
+        "operating_system_name": "Windows",
         "description": "WastedLocker is the ransomware that was used by EvilCorp in the July 2020 attack against Garmin.",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/EvilCorp/WastedLocker_scythe_threat.json",
         "support": "Supported"
     },
     "PowerShell/PowerShellAndEncoding": {
         "display_name": "PowerShellAndEncoding",
+        "operating_system_name": "Windows",
         "description": "For testing detection of powershell.exe and encoding",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/PowerShell/PowerShellAndEncoding_scythe_threat.json",
         "support": "Supported"
     },
     "Orangeworm/Orangeworm": {
         "display_name": "Orangeworm",
+        "operating_system_name": "Windows",
         "description": "Orangeworm is a group that has targeted organizations in the healthcare sector in the United States, Europe, and Asia since at least 2015.",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/Orangeworm/Orangeworm_scythe_threat.json",
         "support": "Supported"
     },
     "Ransomware/Ransomware_Example": {
         "display_name": "Ransomware Example",
+        "operating_system_name": "Windows",
         "description": "This Threat Template provides an example ransomware attack, but instead of using actual user data, it creates a directory with files specifically for the purpose of encrypting them. It then downloads a ransom note from the public internet.",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/Ransomware/Ransomware_Example_scythe_threat.json",
         "support": "Supported"
     },
     "SpeakUp/SpeakUp": {
         "display_name": "SpeakUp for OSX",
+        "operating_system_name": "MacOS",
         "description": "An example Threat replicating some of the behaviors of the SpeakUp trojan, as found by Check Point Research (https://research.checkpoint.com/speakup-a-new-undetected-backdoor-linux-trojan/). Note that this threat is not persistent.",
         "url": "https://raw.githubusercontent.com/scythe-io/community-threats/master/SpeakUp/SpeakUp_for_OSX_scythe_threat.json",
         "support": "Partial Support"
@@ -124,6 +136,7 @@ def listThreats():
     for threat in threats:
         print("\n  [*] ", threat, sep='')
         print("\tName        :", threats[threat]['display_name'])
+        print("\tPlatform    :", threats[threat]['operating_system_name'])
         print("\tStatus      :", threats[threat]['support'])
 
         # Format/output description
@@ -341,6 +354,12 @@ def startEmulation(emulation_plan_url, default_sleep, test_threat, debug):
                 sys.exit()
             else:
                 print("\n[!] Warning: This threat requires Linux")
+        elif emulation_plan["threat"]["operating_system_name"] == "macos" and os.name != 'darwin':
+            if test_threat == False:
+                print("\n[!] Error: This threat requires MacOS")
+                sys.exit()
+            else:
+                print("\n[!] Warning: This threat requires MacOS")
 
     
     print('')
